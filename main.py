@@ -1,7 +1,9 @@
 
 # def final():
 #     global =[]
-
+import cv2
+import pickle
+import numpy as np
 def management(video_file,pickle_file,threshold):
     cap = cv2.VideoCapture(video_file)
     if (cap.isOpened()== False):
@@ -29,13 +31,7 @@ def check(Fimg,img,poslist,threshold):
         wbg = np.ones_like(Fimg, np.uint8)*255
         cv2.bitwise_not(wbg,wbg, mask=mask)
         # overlap the resulted cropped image on the white background
-        """dst = wbg+res
-        cv2.imshow('Original',img)
-        cv2.imshow("Mask",mask)
-        cv2.imshow("Cropped", cropped )
-        cv2.imshow("Samed Size Black Image", res)
-        cv2.imshow("Samed Size White Image", dst)
-        count =  cv2.countNonZero(cropped)"""
+                      
         number_of_white_pix= np.sum(cropped == 255)
         number_of_black_pix = np.sum(cropped == 0)
         total=number_of_white_pix+number_of_black_pix
@@ -78,8 +74,9 @@ def gen_frames(cap,poslist,threshold):
         dilated_img = cv2.dilate(median_img, kernel , iterations=1)
             
         Empty = check(dilated_img,img,poslist,threshold)
-        
-        ret, buffer = cv2.imencode('.jpg', img)
-        frame = buffer.tobytes()
-        yield(b'--frame\r\n'
-              b'COntent-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        print(Empty)
+        # ret, buffer = cv2.imencode('.jpg', img)
+        # frame = buffer.tobytes()
+        # yield(b'--frame\r\n'
+        #       b'COntent-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+management("recording.mp4","CarPosition",10)
