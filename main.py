@@ -1,16 +1,23 @@
 
-# def final():
-#     global =[]
 import cv2
 import pickle
 import numpy as np
+x = 0
+y = 0
+def updatedValues1():
+    global x
+    return x
+def updatedValues2():
+    global y
+    return y
 def management(video_file,pickle_file,threshold):
     cap = cv2.VideoCapture(video_file)
     if (cap.isOpened()== False):
 	    print("Error opening video file")
     with open(pickle_file,'rb') as p:
         poslist = pickle.load(p)
-    return gen_frames(cap,poslist,threshold)
+    return gen_frames(cap,poslist,threshold,video_file)
+
 
 
 
@@ -53,13 +60,15 @@ def check(Fimg,img,poslist,threshold):
     fontScale =0.9
     color = (100, 0, 255)
     thickness = 3
-    cv2.putText(img,  f'Vaccant: {Empty}/{len(poslist)//4}', (20, 30), font, 
-                   fontScale, color, thickness, cv2.LINE_AA)
-    cv2.putText(img, f'{vac}', (30, 1000), font, 
-                   fontScale, color, thickness, cv2.LINE_AA)
+    # cv2.putText(img,  f'Vaccant: {Empty}/{len(poslist)//4}', (20, 30), font, 
+    #                fontScale, color, thickness, cv2.LINE_AA)
+    # cv2.putText(img, f'{vac}', (30, 1000), font, 
+    #                fontScale, color, thickness, cv2.LINE_AA)
     return Empty
 
-def gen_frames(cap,poslist,threshold):
+def gen_frames(cap,poslist,threshold,file):
+    global x
+    global y
     while(cap.isOpened()):
         if cap.get(cv2.CAP_PROP_POS_FRAMES) == cap.get(cv2.CAP_PROP_FRAME_COUNT):
             cap.set(cv2.CAP_PROP_POS_FRAMES,0)
@@ -74,9 +83,12 @@ def gen_frames(cap,poslist,threshold):
         dilated_img = cv2.dilate(median_img, kernel , iterations=1)
             
         Empty = check(dilated_img,img,poslist,threshold)
-        print(Empty)
-        # ret, buffer = cv2.imencode('.jpg', img)
-        # frame = buffer.tobytes()
-        # yield(b'--frame\r\n'
-        #       b'COntent-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-management("recording.mp4","CarPosition",10)
+        if file=='recording.mp4':
+            x = Empty
+        elif file=='CMR_bike.mp4':
+            y = Empty
+
+        ret, buffer = cv2.imencode('.jpg', img)
+        frame = buffer.tobytes()
+        yield(b'--frame\r\n'
+              b'COntent-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
