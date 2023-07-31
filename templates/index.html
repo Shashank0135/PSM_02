@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/calvier" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -31,17 +32,41 @@
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
-
+    @import url('https://fonts.googleapis.com/css?family=Bungee&display=swap');
     *{
     margin: 0;
 }
-#main{
-    background-color: black;
+#body{
+    background-image: url("/static/backg.jpeg");
+    background-size: cover;
 
 }
+#title1{
+    display: flex;
+  align-items: center;
+  justify-content: center
+}
+a {
+  max-width: 100%;
+  max-height:100%;
+}
+
+#park{
+    width:40px;
+    height:40px;
+    float: left;
+    border-style:solid;
+    border-width: 5px;
+    border-color:#fff;
+    margin-left: 10px;
+    margin-top: -10px;
+}
 #title{
-    color:wheat;
+    color:#f07c07;
     padding-left: 50px;
+    font-family: "Bungee";
+    letter-spacing: 3px;
+    font-size: 40px;
 }
 #header{
     height: 10vh;
@@ -65,11 +90,14 @@
     overflow: hidden;
     position: fixed;
 
+
 }
 #head{
     color:white;
     padding:10px;
-    font-size: 35px;
+    font-size: 30px;
+    float: left;
+    font-family:Arial, Helvetica, sans-serif;
 }
 .levels{
     width: 20vw;
@@ -233,10 +261,13 @@
 
 .img1 {
     width: 100%;
-    height: 50%;
+    height: 46%;
     object-fit: fill;
     border-radius: 15px;
     transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    border-style: groove;
+    border-width: 10px;
+    border-color:#f07c07;
 }
 #footer ul {
     display: flex;
@@ -321,8 +352,17 @@ margin-top:20%;
         </div>
             <div class="mainContainer">
                 <div class="levels">
-                    <i class="material-icons" style="font-size:36px"></i>               
-                    <h1 id="head">Parking Space Available</h1>
+                    <div id="title1">
+                        <div id="a">
+                            <img id="park" src="static/parking.jpg"/> 
+                        </div>
+                        <div id="b">
+                            <h1 id="head">Parking Space Available</h1>
+                        </div>
+                    </div>
+
+                              
+                    
                     <div id="level1" class="levelHighlight">
                         <h1 id="level1_text">LEVEL1</h1>
                         <div>
